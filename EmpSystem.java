@@ -8,6 +8,7 @@ public class EmpSystem {
 	
 	private Scanner scan;
 	private List<Employee> employees;
+	private List<String[]> loginList;
 	
 	/**
 	* 	
@@ -15,6 +16,7 @@ public class EmpSystem {
 	public EmpSystem() throws IOException {
 		scan = new Scanner(System.in);
 		employees = buildEmpList();
+		loginList = buildLoginList();
 	}
 	
 	private List<Employee> buildEmpList() throws IOException {
@@ -33,6 +35,22 @@ public class EmpSystem {
 									  employee[3], 
 									  Long.parseLong(employee[4].substring(1,employee[4].length()))));
 		}
+		return tempList;
+	}
+	
+	private List<String[]> buildLoginList() throws IOException {
+		FileReader database = new FileReader("./login1.txt");
+		BufferedReader reader = new BufferedReader(database);
+		
+		List<String[]> tempList = new ArrayList<String[]>();
+		String line;
+		
+		while((line = reader.readLine()) != null) {
+			String[] employee = line.split(", ");
+			
+			tempList.add(employee);
+		}
+		System.out.println(tempList.get(0));
 		return tempList;
 	}
 	
@@ -86,42 +104,66 @@ public class EmpSystem {
 						 "--------------------------\n\n");
 		
 		String name;
-		int id = -2;
+		int id;
 		boolean id_accepted = false;
 		String username;
-		boolean username_accepted = false;
+		boolean username_exists = true;
 		String password;
 		
 		
 		System.out.print("First Name: ");
 		name = this.scan.next();
+		this.scan.nextLine();
 		
-		// loop while id is not accepted or until id = -1
-		while(!id_accepted || id != -1) {
+		while(!id_accepted) {
 			try {
 				System.out.print("ID: ");
 				id = scan.nextInt();
+				id_accepted = checkEmpList(id);
 			} catch (InputMismatchException e) {
 				System.err.println("ERROR: " + e);
 				this.scan.nextLine();
 			}
-			// check id, loop till works or -1 to go back to main menu
+			
 		}	
 		
-		if(id == -1) { 
+		if(!id_accepted) { 
 			run(); 
 		} 
 		else { 
-			while(!username_accepted) {
+			while(username_exists) {
 				System.out.print("Username: "); 
-				// check username, loop until they give an accepted one
+				username = this.scan.next();
+				this.scan.nextLine();
+				username_exists = checkLoginList(username);
 			}
 			
 			System.out.print("Password: ");
-			//write to login file
-				
+			Console console = System.console();
+			char[] pass = console.readPassword();
+			password = new String(pass);
 		} 
 	}
+	
+	/**
+	*
+	*/
+	private boolean checkEmpList(int id) {
+		
+		boolean exist = false;
+		
+		for(int i=0; i < this.employees.size(); i++) {
+			if((this.employees.get(i)).getId() == id) {
+				exist = true;
+				i = this.employees.size();
+			}
+			else {
+				exist = false;
+			}
+		}
+		return exist;
+	}
+	
 
 	
 	/**
@@ -139,6 +181,9 @@ public class EmpSystem {
 		
 		while (!login_accepted) {
 			System.out.print("Username: "); 
+			username = this.scan.next();
+			this.scan.nextLine();
+			username_exists = checkLoginList(username);
 			if(!username_exists) {
 				System.out.println("User does not exist.");
 				login();
@@ -157,6 +202,25 @@ public class EmpSystem {
 				}
 			}
 		}
+	}
+	
+	/**
+	*
+	*/
+	private boolean checkLoginList(String username) {
+		
+		boolean exist = true;
+		
+		for(int i=0; i < this.loginList.size(); i++) {
+			if((this.loginList.get(i)[1]).equals(username)) {
+				exist = true;
+				i = this.loginList.size();
+			}
+			else {
+				exist = false;
+			}
+		}
+		return exist;
 	}
 	
 	/**
