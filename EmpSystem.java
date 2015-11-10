@@ -27,10 +27,15 @@ public class EmpSystem {
 		while((line = reader.readLine()) != null) {
 			String[] employee = line.split(", ");
 			
-			tempList.add(new Employee(employee[0], Integer.parseInt(employee[1]), employee[2], employee[3], Long.parseLong(employee[4].trim())));
+			tempList.add(new Employee(employee[0], 
+									  Integer.parseInt(employee[1]), 
+									  employee[2], 
+									  employee[3], 
+									  Long.parseLong(employee[4].substring(1,employee[4].length()))));
 		}
 		return tempList;
 	}
+	
 	
 	/**
 	* 	

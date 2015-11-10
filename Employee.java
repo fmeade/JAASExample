@@ -27,4 +27,12 @@ public class Employee {
 	
 	public long getSalary() { return this.salary; }
 	public void setSalary(long _salary) { this.salary = _salary; }
+	
+	public String toString() {
+		return "First name: " + this.name + "\n" + 
+			   "ID: " + this.id + "\n" + 
+			   "Position: " + this.position + "\n" +
+			   "Supervisor: " + this.supervisor + "\n" + 
+			   "Salary: $" + this.salary + "\n";
+	}
 }
