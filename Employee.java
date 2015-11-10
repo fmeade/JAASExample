@@ -6,9 +6,9 @@ public class Employee {
 	private int id;
 	private String position;
 	private String supervisor; 
-	private BigInteger salary;
+	private long salary;
 	
-	public Employee(_name, _id, _position, _supervisor, _salary) {
+	public Employee(String _name, int _id, String _position, String _supervisor, long _salary) {
 		this.name = _name;
 		this.id = _id;
 		this.position = _position;
@@ -16,7 +16,15 @@ public class Employee {
 		this.salary = _salary;
 	}
 	
-	public void setSalary(BigInteger _salary) {
-		this.salary = _salary;
-	}
+	public String getName() { return this.name; }
+	
+	public int getId() { return this.id; }
+	
+	public String getPosition() { return this.position; }
+	public void setPosition(String _position) { this.position = _position; }
+	
+	public String getSupervisor() { return this.supervisor; }
+	
+	public long getSalary() { return this.salary; }
+	public void setSalary(long _salary) { this.salary = _salary; }
 }
