@@ -58,7 +58,7 @@ public class EmpSystem {
 	/**
 	* 	
 	*/
-	public void run() {
+	public void run() throws IOException {
 		int choice;
 		
 		choice = mainMenu();
@@ -98,17 +98,17 @@ public class EmpSystem {
 	/**
 	* 	
 	*/
-	private void createUser() {
+	private void createUser() throws IOException {
 		System.out.print("\n\n--------------------------\n" + 
 						 "Create a User\n" +
 						 "--------------------------\n\n");
 		
-		String name;
-		int id;
+		String name = "";
+		int id = -1;
 		boolean id_accepted = false;
-		String username;
+		String username = "";
 		boolean username_exists = true;
-		String password;
+		String password = "1", password2 = "2";
 		
 		
 		System.out.print("First Name: ");
@@ -120,6 +120,8 @@ public class EmpSystem {
 				System.out.print("ID: ");
 				id = scan.nextInt();
 				id_accepted = checkEmpList(id);
+				
+				
 			} catch (InputMismatchException e) {
 				System.err.println("ERROR: " + e);
 				this.scan.nextLine();
@@ -132,16 +134,39 @@ public class EmpSystem {
 		} 
 		else { 
 			while(username_exists) {
-				System.out.print("Username: "); 
+				System.out.print("Username: ");
 				username = this.scan.next();
 				this.scan.nextLine();
 				username_exists = checkLoginList(username);
 			}
 			
-			System.out.print("Password: ");
-			Console console = System.console();
-			char[] pass = console.readPassword();
-			password = new String(pass);
+			while(!password.equals(password2)) {
+				System.out.print("Password: ");
+				Console console = System.console();
+				char[] pass = console.readPassword();
+				password = new String(pass);
+				
+				System.out.print("Re-enter Password: ");
+				pass = console.readPassword();
+				password2 = new String(pass);
+				
+				if(!password.equals(password2)) {
+					System.out.println("\n Passwords did not match.\n");
+				}
+			}
+			
+			String newLogin = id + ", " + username + ", " + password;
+				
+			FileWriter login = new FileWriter("./login1.txt",true);
+			BufferedWriter bw = new BufferedWriter(login);
+			
+			
+			bw.write("\n" + newLogin);
+			bw.flush();
+			
+			if(bw != null){
+				bw.close();
+			}
 		} 
 	}
 	
