@@ -132,7 +132,7 @@ public class EmpSystem {
 			System.out.print("Username: "); 
 			if(!username_exists) {
 				System.out.println("User does not exist.");
-				run();
+				login();
 			}
 			else {
 				System.out.print("Password: ");
