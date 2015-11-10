@@ -12,20 +12,24 @@ public class EmpSystem {
 	/**
 	* 	
 	*/
-	public EmpSystem() {
+	public EmpSystem() throws IOException {
 		scan = new Scanner(System.in);
 		employees = buildEmpList();
 	}
 	
-	private List<Employee> buildEmpList() {
+	private List<Employee> buildEmpList() throws IOException {
 		FileReader database = new FileReader("./testinput1.txt");
 		BufferedReader reader = new BufferedReader(database);
 		
+		List<Employee> tempList = new ArrayList<Employee>();
 		String line;
 		
-		while() {
+		while((line = reader.readLine()) != null) {
+			String[] employee = line.split(", ");
 			
+			tempList.add(new Employee(employee[0], Integer.parseInt(employee[1]), employee[2], employee[3], Long.parseLong(employee[4].trim())));
 		}
+		return tempList;
 	}
 	
 	/**
