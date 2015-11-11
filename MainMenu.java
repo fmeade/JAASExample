@@ -113,7 +113,7 @@ public class MainMenu {
 			BufferedWriter bw = new BufferedWriter(login);
 			
 			
-			bw.write("\n" + newLogin);
+			bw.write(newLogin + "\n");
 			bw.flush();
 			
 			if(bw != null){
@@ -152,9 +152,10 @@ public class MainMenu {
 				String storedPassword = processList.getPassword(this.loginList, username);
 
 				System.out.print("Password: ");
-				password = scan.next();
-
-				scan.nextLine();			
+				Console console = System.console();
+				char[] pass = console.readPassword();
+				password = new String(pass);
+			
 				if(md5Hash.hash(password).equals(storedPassword)) {
 					login_accepted = true;
 					System.out.println("Login Successful!");
