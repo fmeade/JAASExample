@@ -1,10 +1,12 @@
 import java.util.*;
 import java.io.*;
+import java.security.*;
+import java.math.*;
 
 /**
 * 	
 */
-public class EmpSystem {
+public class EmpSystem  {
 	
 	private Scanner scan;
 	private List<Employee> employees;
@@ -13,13 +15,13 @@ public class EmpSystem {
 	/**
 	* 	
 	*/
-	public EmpSystem() throws IOException {
+	public EmpSystem() throws IOException,NoSuchAlgorithmException {
 		scan = new Scanner(System.in);
 		employees = buildEmpList();
 		loginList = buildLoginList();
 	}
 	
-	private List<Employee> buildEmpList() throws IOException {
+	private List<Employee> buildEmpList() throws IOException,NoSuchAlgorithmException {
 		FileReader database = new FileReader("./testinput1.txt");
 		BufferedReader reader = new BufferedReader(database);
 		
@@ -38,7 +40,7 @@ public class EmpSystem {
 		return tempList;
 	}
 	
-	private List<String[]> buildLoginList() throws IOException {
+	private List<String[]> buildLoginList() throws IOException,NoSuchAlgorithmException {
 		FileReader database = new FileReader("./login1.txt");
 		BufferedReader reader = new BufferedReader(database);
 		
@@ -58,7 +60,7 @@ public class EmpSystem {
 	/**
 	* 	
 	*/
-	public void run() throws IOException {
+	public void run() throws IOException,NoSuchAlgorithmException {
 		int choice;
 		
 		choice = mainMenu();
@@ -98,7 +100,7 @@ public class EmpSystem {
 	/**
 	* 	
 	*/
-	private void createUser() throws IOException {
+	private void createUser() throws IOException,NoSuchAlgorithmException {
 		System.out.print("\n\n--------------------------\n" + 
 						 "Create a User\n" +
 						 "--------------------------\n\n");
@@ -166,7 +168,7 @@ public class EmpSystem {
 				}
 			}
 			
-			String newLogin = id + ", " + username + ", " + password;
+			String newLogin = id + ", " + username + ", " + hashPassword(password);
 				
 			FileWriter login = new FileWriter("./login1.txt",true);
 			BufferedWriter bw = new BufferedWriter(login);
@@ -318,5 +320,27 @@ public class EmpSystem {
 	private void changePassword() {
 		
 	}
+	
+	
+	/**
+	*
+	*/
+	private String hashPassword(String password) throws NoSuchAlgorithmException,NoSuchAlgorithmException {
+		
+		MessageDigest message = MessageDigest.getInstance("MD5");
+		message.reset();
+		message.update(password.getBytes());
+		
+		byte[] digest = message.digest();
+		BigInteger bigInt = new BigInteger(1,digest);
+		String hashtext = bigInt.toString(16);
+		
+		while(hashtext.length() < 32){
+			hashtext = "0"+hashtext;
+		}
+		return hashtext;
+	}
+	
+	
 
 }
