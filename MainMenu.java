@@ -13,7 +13,7 @@ public class MainMenu {
 	private List<String[]> loginList;
 	
 	
-	public MainMenu(Scanner _scan) {
+	public MainMenu(Scanner _scan) throws IOException, NoSuchAlgorithmException {
 		processList = new ProcessList();
 		userMenu = new UserMenu(_scan);
 		md5Hash = new MD5Hash();
@@ -39,7 +39,7 @@ public class MainMenu {
 	/**
 	* 	
 	*/
-	public void createUser() throws IOException,NoSuchAlgorithmException {
+	public void createUser() throws IOException, NoSuchAlgorithmException {
 		System.out.print("\n\n--------------------------\n" + 
 						 "Create a User\n" +
 						 "--------------------------\n\n");
@@ -141,7 +141,7 @@ public class MainMenu {
 			System.out.print("Username: "); 
 			username = this.scan.next();
 			this.scan.nextLine();
-			username_exists = processList.checkLoginList(username, 1);
+			username_exists = processList.checkLoginList(this.loginList, username, 1);
 			if(!username_exists) {
 				System.out.println("User does not exist.");
 				login();
