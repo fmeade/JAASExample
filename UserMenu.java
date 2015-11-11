@@ -62,10 +62,10 @@ public class UserMenu {
 			menu();
 		}
 		else if(choice == 3) {
-			System.out.println("Have a nice day!");
+			System.out.println("Have a nice day!\n");
 		}
 		else {
-			System.out.println("ERROR: Invalid Selection.");
+			System.err.println("ERROR: Invalid Selection.");
 			menu();
 		}
 		
@@ -107,7 +107,6 @@ public class UserMenu {
 						char[] newPass2 = console.readPassword();
 						newPassword2 = new String(newPass2);
 				}
-				
 				
 				while(!newPassword.equals(newPassword2)) {
 					System.out.print("Please enter new password: ");
