@@ -9,11 +9,9 @@ public class EmpSystem  {
 	
 	private ProcessList processList;
 	private MainMenu mainMenu;
+	private UserMenu userMenu;
 	
-	private Scanner scan;
-	private List<Employee> employees;
-	private List<String[]> loginList;
-	
+	private Scanner scan;	
 	
 	/**
 	* 	
@@ -21,10 +19,9 @@ public class EmpSystem  {
 	public EmpSystem() throws IOException,NoSuchAlgorithmException {
 		scan = new Scanner(System.in);
 		processList = new ProcessList();
-		employees = processList.buildEmpList(employees);
-		loginList = processList.buildLoginList(loginList);
 		
 		mainMenu = new MainMenu(scan);
+		userMenu = new UserMenu(scan);
 	}
 	
 	
@@ -44,11 +41,11 @@ public class EmpSystem  {
 		if(choice == 1) {
 			mainMenu.createUser();
 			mainMenu.login();
-			mainMenu.user();
+			userMenu.user();
 		}
 		else if(choice == 2) {
 			mainMenu.login();
-			mainMenu.user();
+			userMenu.user();
 		}
 		else {
 			System.out.println("ERROR: Please restart application.");

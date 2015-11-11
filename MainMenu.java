@@ -9,11 +9,18 @@ public class MainMenu {
 	private MD5Hash md5Hash;
 	Scanner scan;
 	
+	private List<Employee> employees;
+	private List<String[]> loginList;
+	
+	
 	public MainMenu(Scanner _scan) {
 		processList = new ProcessList();
 		userMenu = new UserMenu(_scan);
 		md5Hash = new MD5Hash();
 		this.scan = _scan;
+		
+		employees = processList.buildEmpList();
+		loginList = processList.buildLoginList();
 		
 	}
 	
@@ -53,14 +60,14 @@ public class MainMenu {
 			try {
 				System.out.print("ID: ");
 				id = scan.nextInt();
-				id_accepted = processList.checkEmpList(id);
+				id_accepted = processList.checkEmpList(employees, id);
 				
 				if(!id_accepted) {
 					System.out.println("\nEmployee does not exist.\n");
 				}
 				
 				if(id_accepted) {
-					id_accepted = !processList.checkLoginList("" + id, 0);
+					id_accepted = !processList.checkLoginList(loginList, "" + id, 0);
 					
 					if(!id_accepted) {
 						System.out.println("\nid already associated with an account. Please see manager.\n");
@@ -82,7 +89,7 @@ public class MainMenu {
 				System.out.print("Username: ");
 				username = this.scan.next();
 				this.scan.nextLine();
-				username_exists = processList.checkLoginList(username, 1);
+				username_exists = processList.checkLoginList(loginList, username, 1);
 			}
 			
 			while(!password.equals(password2)) {
