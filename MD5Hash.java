@@ -7,7 +7,7 @@ public class MD5Hash {
 		
 	}
 	
-	public String hash(String str) {
+	public String hash(String str) throws NoSuchAlgorithmException {
 		
 		MessageDigest message = MessageDigest.getInstance("MD5");
 		message.reset();
