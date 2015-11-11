@@ -121,8 +121,16 @@ public class EmpSystem {
 				id = scan.nextInt();
 				id_accepted = checkEmpList(id);
 				
+				if(!id_accepted) {
+					System.out.println("\nEmployee does not exist.\n");
+				}
+				
 				if(id_accepted) {
-					id_accepted = checkLoginList(id, 0);
+					id_accepted = !checkLoginList("" + id, 0);
+					
+					if(!id_accepted) {
+						System.out.println("\nid already associated with an account. Please see manager.\n");
+					}
 				}
 				
 			} catch (InputMismatchException e) {
@@ -192,7 +200,7 @@ public class EmpSystem {
 			System.out.print("Username: "); 
 			username = this.scan.next();
 			this.scan.nextLine();
-			username_exists = checkLoginList(username);
+			username_exists = checkLoginList(username, 1);
 			if(!username_exists) {
 				System.out.println("User does not exist.");
 				login();
