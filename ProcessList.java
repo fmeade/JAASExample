@@ -52,7 +52,7 @@ public class ProcessList {
 		boolean exist = false;
 		
 		for(int i=0; i < employees.size(); i++) {
-			if((this.employees.get(i)).getId() == id) {
+			if((employees.get(i)).getId() == id) {
 				exist = true;
 				i = employees.size();
 			}
