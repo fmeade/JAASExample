@@ -19,7 +19,8 @@ public class QueryMenu {
 		System.out.print("1. Show Personal Information.\n" +
 						 "2. See Your Employees.\n" +
 						 "3. Change Salary of Employee.\n" +
-						 "4. Change Position of Employee.\n\n");
+						 "4. Change Position of Employee.\n" +
+						 "5. Back\n\n");
 		
 		return this.scan.nextInt();
 	}

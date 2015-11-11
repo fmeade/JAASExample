@@ -40,7 +40,7 @@ public class ProcessList {
 			
 			tempList.add(employee);
 		}
-		System.out.println(tempList.get(0));
+
 		return tempList;
 	}
 	
@@ -68,8 +68,8 @@ public class ProcessList {
 	*/
 	public boolean checkLoginList(List<String[]> loginList, String username, int idOrUsername) {
 		
-		boolean exist = true;
-		
+		boolean exist = false;
+
 		for(int i=0; i < loginList.size(); i++) {
 			if((loginList.get(i)[idOrUsername]).equals(username)) {
 				exist = true;
@@ -80,5 +80,21 @@ public class ProcessList {
 			}
 		}
 		return exist;
+	}
+
+
+	/**
+	*
+	*/
+	public String getPassword(List<String[]> loginList, String username) {
+		String password = null;
+
+		for(int i=0; i < loginList.size(); i++) {
+			if((loginList.get(i)[1]).equals(username)) {
+				password = loginList.get(i)[2];
+			}
+		}
+		return password;
+
 	}
 }

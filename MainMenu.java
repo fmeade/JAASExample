@@ -60,14 +60,14 @@ public class MainMenu {
 			try {
 				System.out.print("ID: ");
 				id = scan.nextInt();
-				id_accepted = processList.checkEmpList(employees, id);
+				id_accepted = processList.checkEmpList(this.employees, id);
 				
 				if(!id_accepted) {
 					System.out.println("\nEmployee does not exist.\n");
 				}
 				
 				if(id_accepted) {
-					id_accepted = !processList.checkLoginList(loginList, "" + id, 0);
+					id_accepted = !processList.checkLoginList(this.loginList, "" + id, 0);
 					
 					if(!id_accepted) {
 						System.out.println("\nid already associated with an account. Please see manager.\n");
@@ -89,7 +89,7 @@ public class MainMenu {
 				System.out.print("Username: ");
 				username = this.scan.next();
 				this.scan.nextLine();
-				username_exists = processList.checkLoginList(loginList, username, 1);
+				username_exists = processList.checkLoginList(this.loginList, username, 1);
 			}
 			
 			while(!password.equals(password2)) {
@@ -119,6 +119,8 @@ public class MainMenu {
 			if(bw != null){
 				bw.close();
 			}
+
+			loginList = processList.buildLoginList();
 		} 
 	}
 	
@@ -127,13 +129,13 @@ public class MainMenu {
 	/**
 	*
 	*/
-	public void login() {
+	public void login() throws NoSuchAlgorithmException {
 		System.out.print("\n\n--------------------------\n" + 
 						 "Login\n" +
 						 "--------------------------\n\n");
 		
-		String username;
-		String password;
+		String username = "";
+		String password = "";
 		boolean login_accepted = false;
 		boolean username_exists = false;
 		
@@ -147,10 +149,13 @@ public class MainMenu {
 				login();
 			}
 			else {
+				String storedPassword = processList.getPassword(this.loginList, username);
+
 				System.out.print("Password: ");
 				password = scan.next();
-			
-				if(password.equals("...")) {
+
+				scan.nextLine();			
+				if(md5Hash.hash(password).equals(storedPassword)) {
 					login_accepted = true;
 					System.out.println("Login Successful!");
 				}
