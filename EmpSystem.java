@@ -121,6 +121,9 @@ public class EmpSystem {
 				id = scan.nextInt();
 				id_accepted = checkEmpList(id);
 				
+				if(id_accepted) {
+					id_accepted = checkLoginList(id, 0);
+				}
 				
 			} catch (InputMismatchException e) {
 				System.err.println("ERROR: " + e);
@@ -137,7 +140,7 @@ public class EmpSystem {
 				System.out.print("Username: ");
 				username = this.scan.next();
 				this.scan.nextLine();
-				username_exists = checkLoginList(username);
+				username_exists = checkLoginList(username, 1);
 			}
 			
 			while(!password.equals(password2)) {
@@ -168,25 +171,6 @@ public class EmpSystem {
 				bw.close();
 			}
 		} 
-	}
-	
-	/**
-	*
-	*/
-	private boolean checkEmpList(int id) {
-		
-		boolean exist = false;
-		
-		for(int i=0; i < this.employees.size(); i++) {
-			if((this.employees.get(i)).getId() == id) {
-				exist = true;
-				i = this.employees.size();
-			}
-			else {
-				exist = false;
-			}
-		}
-		return exist;
 	}
 	
 
@@ -232,12 +216,31 @@ public class EmpSystem {
 	/**
 	*
 	*/
-	private boolean checkLoginList(String username) {
+	private boolean checkEmpList(int id) {
+		
+		boolean exist = false;
+		
+		for(int i=0; i < this.employees.size(); i++) {
+			if((this.employees.get(i)).getId() == id) {
+				exist = true;
+				i = this.employees.size();
+			}
+			else {
+				exist = false;
+			}
+		}
+		return exist;
+	}
+	
+	/**
+	*
+	*/
+	private boolean checkLoginList(String username, int idOrUsername) {
 		
 		boolean exist = true;
 		
 		for(int i=0; i < this.loginList.size(); i++) {
-			if((this.loginList.get(i)[1]).equals(username)) {
+			if((this.loginList.get(i)[idOrUsername]).equals(username)) {
 				exist = true;
 				i = this.loginList.size();
 			}
