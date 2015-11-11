@@ -128,6 +128,7 @@ public class MainMenu {
 			}
 
 			loginList = processList.buildLoginList();
+			userMenu = new UserMenu(scan, currentEmp, loginList);
 		} 
 	}
 	
@@ -136,7 +137,7 @@ public class MainMenu {
 	/**
 	*
 	*/
-	public void login() throws NoSuchAlgorithmException {
+	public void login() throws IOException, NoSuchAlgorithmException {
 		System.out.print("\n\n--------------------------\n" + 
 						 "Login\n" +
 						 "--------------------------\n\n");
@@ -168,6 +169,7 @@ public class MainMenu {
 					System.out.println("Login Successful!");
 					
 					currentEmp = processList.getCurrentEmp(this.employees, processList.getCurrentEmpId(this.loginList, username));
+					userMenu = new UserMenu(scan, currentEmp, loginList);
 					userMenu.menu();
 				}
 				else {

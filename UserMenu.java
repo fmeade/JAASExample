@@ -11,7 +11,7 @@ public class UserMenu {
 	private Employee currentEmp;
 	private List<String[]> loginList;
 	
-	public UserMenu(Scanner _scan) throws NoSuchAlgorithmException {
+	public UserMenu(Scanner _scan) throws IOException, NoSuchAlgorithmException {
 		subMenu = new SubMenu(_scan);
 		queryMenu = new QueryMenu(_scan);
 		md5Hash = new MD5Hash();
@@ -19,7 +19,7 @@ public class UserMenu {
 		scan = _scan;
 	}
 
-	public UserMenu(Scanner _scan, Employee _currentEmp, List<String[]> _loginList) throws NoSuchAlgorithmException {
+	public UserMenu(Scanner _scan, Employee _currentEmp, List<String[]> _loginList) throws IOException, NoSuchAlgorithmException {
 		subMenu = new SubMenu(_scan);
 		queryMenu = new QueryMenu(_scan);
 		md5Hash = new MD5Hash();
@@ -32,7 +32,7 @@ public class UserMenu {
 	/**
 	*
 	*/
-	public void menu() throws NoSuchAlgorithmException {
+	public void menu() throws IOException, NoSuchAlgorithmException {
 		int choice = subMenu.menu();
 		
 		if(choice == 1) {
@@ -40,6 +40,26 @@ public class UserMenu {
 		}
 		else if(choice == 2) {
 			loginList = changePassword();
+
+			String newFile = "";
+
+			for(int i=0; i < loginList.size(); i++){
+
+				newFile = newFile + loginList.get(i)[0] + ", " + loginList.get(i)[1] + ", " + loginList.get(i)[2] + "\n";
+			}
+
+			FileWriter login = new FileWriter("./login1.txt",false);
+			BufferedWriter bw = new BufferedWriter(login);
+			
+			
+			bw.write(newFile);
+			bw.flush();
+			
+			if(bw != null) {
+				bw.close();
+			}
+
+			menu();
 		}
 		else if(choice == 3) {
 			System.out.println("Have a nice day!");
@@ -59,7 +79,8 @@ public class UserMenu {
 		String newPassword, newPassword2 = "";
 		
 		for(int i=0; i < loginList.size(); i++) {
-			if(loginList.get(i)[0].equals(currentEmp.getId())) {
+
+			if(loginList.get(i)[0].equals(currentEmp.getId() + "")) {
 				
 				newPassword = loginList.get(i)[2];
 				Console console = System.console();
@@ -104,7 +125,7 @@ public class UserMenu {
 					
 				}
 
-				String[] tempString = {tempList.get(i)[0], tempList.get(i)[1], md5Hash.hash(newPassword)};
+				String[] tempString = {loginList.get(i)[0], loginList.get(i)[1], md5Hash.hash(newPassword)};
 				
 				tempList.add(tempString);
 			}
