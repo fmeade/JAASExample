@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Parser{
-	public static void main(String[]Args)throws IOException{
+	public static void main(String[]Args) throws IOException{
 
 		FileReader database = new FileReader("/Users/super_computer/Fall_2015/ITEC445/database.txt");
 		BufferedReader reader = new BufferedReader(database);
