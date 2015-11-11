@@ -11,17 +11,18 @@ public class MainMenu {
 	
 	private List<Employee> employees;
 	private List<String[]> loginList;
+	private Employee currentEmp;
 	
 	
-	public MainMenu(Scanner _scan) throws IOException, NoSuchAlgorithmException {
+	public MainMenu() throws IOException, NoSuchAlgorithmException {
 		processList = new ProcessList();
-		userMenu = new UserMenu(_scan);
+
+		this.scan = new Scanner(System.in);
+		this.employees = processList.buildEmpList();
+		this.loginList = processList.buildLoginList();
+
+		userMenu = new UserMenu(scan, currentEmp, loginList);
 		md5Hash = new MD5Hash();
-		this.scan = _scan;
-		
-		employees = processList.buildEmpList();
-		loginList = processList.buildLoginList();
-		
 	}
 	
 	/**
@@ -31,7 +32,8 @@ public class MainMenu {
 		System.out.print("\n=============================\n" +
 						 "Welcome to the Radsburg, Inc.\nEmployee Directory\n" +
 					     "=============================\n\n" +
-					     "1. Create a Login \n2. Login\n\n");
+					     "1. Create a Login\n" + 
+					     "2. Login\n\n");
 		
 		return this.scan.nextInt();
 	}
@@ -113,10 +115,15 @@ public class MainMenu {
 			BufferedWriter bw = new BufferedWriter(login);
 			
 			
-			bw.write(newLogin + "\n");
+			if(loginList.size() == 0){
+				bw.write(newLogin);
+			}
+			else {
+				bw.write("\n" + newLogin);
+			}
 			bw.flush();
 			
-			if(bw != null){
+			if(bw != null) {
 				bw.close();
 			}
 
@@ -159,6 +166,9 @@ public class MainMenu {
 				if(md5Hash.hash(password).equals(storedPassword)) {
 					login_accepted = true;
 					System.out.println("Login Successful!");
+					
+					currentEmp = processList.getCurrentEmp(this.employees, processList.getCurrentEmpId(this.loginList, username));
+					userMenu.menu();
 				}
 				else {
 					System.out.println("Login Unsuccessful.");

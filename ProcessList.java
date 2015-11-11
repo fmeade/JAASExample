@@ -38,7 +38,11 @@ public class ProcessList {
 		while((line = reader.readLine()) != null) {
 			String[] employee = line.split(", ");
 			
-			tempList.add(employee);
+			if(employee[0].equals("")) {
+			}
+			else {
+				tempList.add(employee);
+			}
 		}
 
 		return tempList;
@@ -80,6 +84,29 @@ public class ProcessList {
 			}
 		}
 		return exist;
+	}
+	
+	public Employee getCurrentEmp(List<Employee> employees, int id) {
+		Employee employee = null;
+		
+		for(int i=0; i < employees.size(); i++) {
+			if(employees.get(i).getId() == id) {
+				employee = employees.get(i);
+			}
+		}
+		
+		return employee;
+	}
+	
+	public int getCurrentEmpId(List<String[]> loginList, String username) {
+		int id = -1;
+		
+		for(int i=0; i < loginList.size(); i++) {
+			if(loginList.get(i)[1].equals(username)) {
+				id = Integer.parseInt(loginList.get(i)[0]);
+			}
+		}
+		return id;
 	}
 
 

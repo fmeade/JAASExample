@@ -6,29 +6,22 @@ import java.security.*;
 * 	
 */
 public class EmpSystem  {
-	
-	private ProcessList processList;
+		
 	private MainMenu mainMenu;
-	private UserMenu userMenu;
-	
-	private Scanner scan;	
 	
 	/**
 	* 	
 	*/
-	public EmpSystem() throws IOException,NoSuchAlgorithmException {
-		scan = new Scanner(System.in);
-		processList = new ProcessList();
-		
-		mainMenu = new MainMenu(scan);
-		userMenu = new UserMenu(scan);
+	public EmpSystem() throws IOException, NoSuchAlgorithmException {
+
+		mainMenu = new MainMenu();
 	}
 	
 	
 	/**
 	* 	
 	*/
-	public void run() throws IOException,NoSuchAlgorithmException {
+	public void run() throws IOException, NoSuchAlgorithmException {
 		int choice;
 		
 		choice = mainMenu.menu();
@@ -40,12 +33,11 @@ public class EmpSystem  {
 		*/
 		if(choice == 1) {
 			mainMenu.createUser();
-			mainMenu.login();
-			userMenu.user();
+			System.out.println("\nUser Account created.\n");
+			run();
 		}
 		else if(choice == 2) {
 			mainMenu.login();
-			userMenu.user();
 		}
 		else {
 			System.out.println("ERROR: Please restart application.");
