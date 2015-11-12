@@ -11,7 +11,7 @@ public class ProcessList {
 	}
 	
 	public List<Employee> buildEmpList() throws IOException,NoSuchAlgorithmException {
-		FileReader database = new FileReader("../testinput1.txt");
+		FileReader database = new FileReader("../files/testinput1.txt");
 		BufferedReader reader = new BufferedReader(database);
 		
 		List<Employee> tempList = new ArrayList<Employee>();
@@ -30,7 +30,7 @@ public class ProcessList {
 	}
 	
 	public List<String[]> buildLoginList() throws IOException,NoSuchAlgorithmException {
-		FileReader database = new FileReader("../login1.txt");
+		FileReader database = new FileReader("../files/login1.txt");
 		BufferedReader reader = new BufferedReader(database);
 		
 		List<String[]> tempList = new ArrayList<String[]>();

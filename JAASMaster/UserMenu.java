@@ -49,7 +49,7 @@ public class UserMenu {
 				newFile = newFile + loginList.get(i)[0] + ", " + loginList.get(i)[1] + ", " + loginList.get(i)[2] + "\n";
 			}
 
-			FileWriter login = new FileWriter("./login1.txt",false);
+			FileWriter login = new FileWriter("../files/login1.txt",false);
 			BufferedWriter bw = new BufferedWriter(login);
 			
 			

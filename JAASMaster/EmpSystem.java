@@ -19,7 +19,7 @@ public class EmpSystem {
 	}
 	
 	private List<Employee> buildEmpList() throws IOException {
-		FileReader database = new FileReader("../testinput1.txt");
+		FileReader database = new FileReader("../files/testinput1.txt");
 		BufferedReader reader = new BufferedReader(database);
 		
 		List<Employee> tempList = new ArrayList<Employee>();
