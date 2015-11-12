@@ -1,14 +1,14 @@
-The source files are in the directory: ExamplePackage.
+The source files are in the directory: JAASMaster.
 
 
 To run the program from Command line (in Mac/Linux or Windows command prompt): 
 	(1) Compile the code: 
-		javac ExamplePackage/*.java
+		javac JAASMaster/*.java
 	(2) Run the code: 
 		java -Djava.security.manager \
-			-Djava.security.policy==ExamplePolicies.txt \
+			-Djava.security.policy==JAASPolicies.txt \
 			 -Djava.security.auth.login.config==JAASPolicy.txt \
-			  ExamplePackage/LoginContextExample 
+			  JAASMaster/EmpSystemDriver 
 
 To run the program on Eclipse:
  	(1) Create a new Java project in Eclipse. 
