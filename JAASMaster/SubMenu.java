@@ -1,3 +1,4 @@
+package JAASMaster;
 import java.util.*;
 
 public class SubMenu {
